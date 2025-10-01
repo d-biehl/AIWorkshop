@@ -1,3 +1,9 @@
+from pydantic_ai.toolsets import FunctionToolset
+from pydantic_ai import ModelRetry
+
+__all__ = ["temperature_celsius", "temperature_fahrenheit", "weather_toolset"]
+
+
 def temperature_celsius(city: str) -> float:
     """Get the current temperature in Celsius for a given city."""
     if city.lower() == "london":
@@ -13,7 +19,8 @@ def temperature_celsius(city: str) -> float:
     elif city.lower() == "berlin":
         return 25.0
     else:
-        return -2.0
+        raise ModelRetry("Please try again.")
+
 
 def temperature_fahrenheit(city: str) -> float:
     """Get the current temperature in Fahrenheit for a given city."""
@@ -31,3 +38,9 @@ def temperature_fahrenheit(city: str) -> float:
         return 25.0
     else:
         return -2.0
+
+
+weather_toolset = FunctionToolset(
+    [temperature_celsius, temperature_fahrenheit],
+    max_retries=3,
+)
