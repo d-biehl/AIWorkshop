@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "pydantic-ai-slim[duckduckgo]>=1.0.12",
     "robotframework>=7.3.2",
     "robotframework-aiagent>=0.0.1",
     "robotframework-browser>=19.8.0",
